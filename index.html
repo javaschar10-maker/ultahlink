@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UltahLINK — Masuk</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        /* ── RESET & BASE ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #03045E;
+            padding: 20px;
+        }
+
+        /* ── CARD ── */
+        .login-card {
+            background: #0077B6;
+            padding: 48px 40px;
+            border-radius: 24px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 24px 72px rgba(0, 0, 0, 0.7);
+        }
+
+        /* ── LOGO ── */
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #CAF0F8;
+            letter-spacing: -0.5px;
+        }
+
+        .logo p {
+            color: #90E0EF;
+            font-size: 14px;
+            font-weight: 300;
+            margin-top: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        /* ── FORM ── */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #CAF0F8;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            color: #CAF0F8;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: rgba(202, 240, 248, 0.35);
+            font-weight: 300;
+        }
+
+        input:focus {
+            border-color: #90E0EF;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 0 4px rgba(144, 224, 239, 0.15);
+        }
+
+        /* ── ERROR STATE ── */
+        .input-error {
+            border-color: #FF6B6B !important;
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.15) !important;
+        }
+
+        /* ── BUTTON ── */
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00B4D8, #90E0EF);
+            border: none;
+            border-radius: 14px;
+            color: #03045E;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-login:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(0, 180, 216, 0.35);
+        }
+
+        .btn-login:active {
+            transform: scale(0.97);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ── ERROR MESSAGE ── */
+        .error-msg {
+            color: #FF6B6B;
+            font-size: 14px;
+            font-weight: 400;
+            text-align: center;
+            margin-top: 16px;
+            min-height: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-msg.show {
+            opacity: 1;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            flex-shrink: 0;
+            background: #03045E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: #CAF0F8;
+            transition: border-color 0.3s ease;
+        }
+
+        .footer-avatar:hover {
+            border-color: #90E0EF;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: rgba(202, 240, 248, 0.5);
+            letter-spacing: 0.3px;
+        }
+
+        .footer-text span {
+            color: #90E0EF;
+            font-weight: 500;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 32px 24px;
+            }
+
+            .logo h1 {
+                font-size: 24px;
+            }
+
+            .btn-login {
+                font-size: 16px;
+                padding: 14px;
+            }
+
+            input {
+                font-size: 15px;
+                padding: 12px 14px;
+            }
+
+            .footer-avatar {
+                width: 34px;
+                height: 34px;
+                font-size: 15px;
+            }
+
+            .footer-text {
+                font-size: 12px;
+            }
+        }
+
+        /* ── Loading spinner ── */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(3, 4, 94, 0.2);
+            border-top: 2px solid #03045E;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── HIDE SPINNER NUMBER INPUT ── */
+        input[type="text"]::-webkit-inner-spin-button,
+        input[type="text"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .helper-text {
+            display: block;
+            margin-top: 4px;
+            color: rgba(202, 240, 248, 0.4);
+            font-size: 12px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+
+<body>
+
+    <class class="login-card">
+        <!-- Logo -->
+        <div class="logo">
+            <span class="logo-icon">🕯️</span>
+            <h1>UltahLINK</h1>
+            <p>masuk untuk membuka ucapan</p>
+        </div>
+
+        <!-- Form -->
+        <form id="loginForm" autocomplete="off">
+            <div class="form-group">
+                <label for="username">Nama</label>
+                <input type="text" id="username" placeholder="Masukkan nama kamu" maxlength="50" autocomplete="off"
+                    autocorrect="off" spellcheck="false" required />
+            </div>
+
+            <div class="form-group">
+                <label for="birthdate">Tanggal Lahir (DD-MM)</label>
+                <input type="text" id="birthdate" placeholder="1508" maxlength="5" autocomplete="off"
+                    inputmode="numeric" required />
+                <span class="helper-text">cukup ketik 4 angka — contoh: <strong>1508</strong> (15 Agustus)</span>
+            </div>
+
+            <button type="submit" class="btn-login" id="btnLogin">
+                ✨ Buka Ucapan
+            </button>
+
+            <div class="error-msg" id="errorMsg">
+                ⚠️ Nama atau tanggal lahir tidak cocok. Coba lagi!
+            </div>
+        </form>
+
+        <!-- Footer dengan foto Javas -->
+        <!-- Footer dengan foto Javas -->
+        <div class="footer">
+            <img src="img/javas.png" alt="Foto Javas" class="footer-avatar" ... />
+            <div class="footer-avatar" id="avatarFallback" style="display: none;">JC</div>
+            <p class="footer-text">
+                dibuat oleh <span>Javas Chairunnas</span>
+                <br />
+                <span style="font-size: 11px; opacity: 0.5;">
+                    Ucapan oleh Fajar Ghifari Nugroho · MIT License
+                </span>
+            </p>
+        </div>
+        </class>
+    </div>
+
+    <script>
+        // ============================================================
+        // 1. DATA USER (HARDCODED — kamu yang atur)
+        // ============================================================
+        const USERS = [
+            { username: "TEST", birthdate: "01-01" },
+            // Tambahkan teman-temanmu di sini!
+            // Username harus UPPERCASE, tanggal format DD-MM
+        ];
+
+        // ============================================================
+        // 2. ELEMEN
+        // ============================================================
+        const form = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const birthdateInput = document.getElementById('birthdate');
+        const btnLogin = document.getElementById('btnLogin');
+        const errorMsg = document.getElementById('errorMsg');
+
+        // ============================================================
+        // 3. USERNAME → OTOMATIS UPPERCASE (seperti Apple/Microsoft)
+        // ============================================================
+        usernameInput.addEventListener('input', function () {
+            // Ubah semua huruf menjadi besar
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            this.value = this.value.toUpperCase();
+            // Kembalikan posisi kursor (agar tidak loncat)
+            this.setSelectionRange(start, end);
+        });
+
+        // ============================================================
+        // 4. TANGGAL LAHIR → AUTO-FORMAT TANPA GANGGU HAPUS
+        // ============================================================
+        let lastBirthdateValue = '';
+
+        birthdateInput.addEventListener('input', function (e) {
+            // Hanya angka yang boleh
+            let raw = this.value.replace(/\D/g, '');
+
+            // Batasi maksimal 4 angka
+            if (raw.length > 4) {
+                raw = raw.slice(0, 4);
+            }
+
+            // Jika panjang 2 dan sebelumnya tidak ada strip, tambahkan strip
+            let formatted = raw;
+            if (raw.length >= 2 && raw.length <= 4) {
+                formatted = raw.slice(0, 2) + '-' + raw.slice(2);
+            }
+
+            // Simpan posisi kursor
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+
+            // Set value
+            this.value = formatted;
+
+            // Kembalikan posisi kursor (perhatikan perubahan panjang)
+            const diff = this.value.length - lastBirthdateValue.length;
+            const newPos = Math.min(start + diff, this.value.length);
+            this.setSelectionRange(newPos, newPos);
+
+            lastBirthdateValue = this.value;
+        });
+
+        // Handle backspace/delete dengan aman
+        birthdateInput.addEventListener('keydown', function (e) {
+            // Jika backspace ditekan dan posisi kursor di setelah strip,
+            // kita biarkan input handling normal
+            // Tidak perlu intervensi khusus
+        });
+
+        // ============================================================
+        // 5. FUNGSI LOGIN
+        // ============================================================
+        function handleLogin(e) {
+            e.preventDefault();
+
+            // Ambil value
+            let username = usernameInput.value.trim();
+            let birthdate = birthdateInput.value.trim();
+
+            // Jika kosong, tampilkan error
+            if (!username || !birthdate) {
+                showError('⚠️ Nama dan tanggal lahir harus diisi!');
+                return;
+            }
+
+            // Jika user hanya ketik 4 angka tanpa strip, kita ubah formatnya
+            if (/^\d{4}$/.test(birthdate)) {
+                birthdate = birthdate.slice(0, 2) + '-' + birthdate.slice(2, 4);
+            }
+
+            // Validasi format akhir (DD-MM)
+            if (!/^\d{2}-\d{2}$/.test(birthdate)) {
+                showError('⚠️ Format tanggal harus DD-MM (contoh: 15-08)');
+                return;
+            }
+
+            // Validasi tanggal (01-31) dan bulan (01-12)
+            const day = parseInt(birthdate.slice(0, 2), 10);
+            const month = parseInt(birthdate.slice(3, 5), 10);
+            if (day < 1 || day > 31 || month < 1 || month > 12) {
+                showError('⚠️ Tanggal atau bulan tidak valid!');
+                return;
+            }
+
+            // Cari user di database (username sudah uppercase otomatis)
+            const foundUser = USERS.find(
+                (u) =>
+                    u.username === username &&
+                    u.birthdate === birthdate
+            );
+
+            if (!foundUser) {
+                showError('⚠️ Nama atau tanggal lahir tidak cocok. Coba lagi!');
+                usernameInput.classList.add('input-error');
+                birthdateInput.classList.add('input-error');
+                setTimeout(() => {
+                    usernameInput.classList.remove('input-error');
+                    birthdateInput.classList.remove('input-error');
+                }, 800);
+                return;
+            }
+
+            // === LOGIN BERHASIL ===
+            errorMsg.classList.remove('show');
+            btnLogin.disabled = true;
+            btnLogin.innerHTML = '<span class="spinner"></span> Membuka...';
+
+            setTimeout(() => {
+               const redirectUrl =
+                    `ucapan.html?nama=${encodeURIComponent(foundUser.username)}&tgl=${foundUser.birthdate}`;
+                window.location.href = redirectUrl;
+            }, 800);
+        }
+
+        // ============================================================
+        // 6. FUNGSI ERROR
+        // ============================================================
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
+        }
+
+        // ============================================================
+        // 7. RESET ERROR SAAT USER KETIK ULANG
+        // ============================================================
+        usernameInput.addEventListener('input', () => {
+            errorMsg.classList.remove('show');
+            usernameInput.classList.remove('input-error');
+        });
+
+        birthdateInput.addEventListener('input', () => {
+            errorMsg.classList.remove('show');
+            birthdateInput.classList.remove('input-error');
+        });
+
+        // ============================================================
+        // 8. EVENT LISTENER
+        // ============================================================
+        form.addEventListener('submit', handleLogin);
+
+        // ============================================================
+        // 9. AUTO-FOCUS
+        // ============================================================
+        window.addEventListener('load', () => {
+            usernameInput.focus();
+        });
+
+        console.log('🔐 UltahLINK Login siap!');
+        console.log(`📋 ${USERS.length} user terdaftar.`);
+        console.log('📸 Taruh foto Javas di img/javas.jpg');
+    </script>
+
+</body>
+
+</html>
