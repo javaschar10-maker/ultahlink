@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UltahLINK — Masuk</title>
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <title>UltahLINK — Buka Ucapan 🎂</title>
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,21 +24,30 @@
         body {
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #03045E;
             padding: 20px;
+            background:
+                radial-gradient(1100px 550px at 85% -10%, rgba(0, 180, 216, 0.35), transparent 60%),
+                radial-gradient(900px 500px at -10% 110%, rgba(144, 224, 239, 0.22), transparent 60%),
+                #03045E;
         }
 
         /* ── CARD ── */
         .login-card {
-            background: #0077B6;
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 119, 182, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(144, 224, 239, 0.18);
             padding: 48px 40px;
             border-radius: 24px;
             max-width: 420px;
             width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -209,14 +219,195 @@
             font-weight: 500;
         }
 
+        /* ── BALON LATAR (dekorasi CSS-only) ── */
+        .bg-balloons {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-balloons img {
+            position: absolute;
+            bottom: -160px;
+            width: clamp(60px, 10vw, 110px);
+            opacity: 0.45;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0) rotate(-6deg);
+            }
+
+            to {
+                transform: translateY(-120vh) rotate(12deg);
+            }
+        }
+
+        /* ── STATS & CHIP TEMAN ── */
+        .stats {
+            color: rgba(202, 240, 248, 0.7);
+            font-size: 13px;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 20px;
+            min-height: 18px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+            padding: 5px 14px 5px 6px;
+            cursor: pointer;
+            color: #CAF0F8;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .chip:hover {
+            background: rgba(255, 255, 255, 0.16);
+            border-color: #90E0EF;
+        }
+
+        .chip-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00B4D8, #90E0EF);
+            color: #03045E;
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ── CARA PAKAI ── */
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: rgba(202, 240, 248, 0.85);
+        }
+
+        .step span {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00B4D8, #90E0EF);
+            color: #03045E;
+            font-weight: 700;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ── ERROR SHAKE ── */
+        .input-error {
+            animation: shake 0.45s ease;
+        }
+
+        @keyframes shake {
+
+            10%,
+            90% {
+                transform: translateX(-2px);
+            }
+
+            20%,
+            80% {
+                transform: translateX(4px);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translateX(-6px);
+            }
+
+            40%,
+            60% {
+                transform: translateX(6px);
+            }
+        }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 480px) {
             .login-card {
-                padding: 32px 24px;
+                padding: 28px 20px;
+            }
+
+            .logo {
+                margin-bottom: 20px;
+            }
+
+            .logo-icon {
+                font-size: 38px;
+                margin-bottom: 4px;
             }
 
             .logo h1 {
                 font-size: 24px;
+            }
+
+            .logo p {
+                font-size: 12px;
+            }
+
+            .stats {
+                font-size: 12px;
+                margin-bottom: 14px;
+            }
+
+            .chips {
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+
+            .chip {
+                font-size: 12px;
+                padding: 4px 12px 4px 5px;
+            }
+
+            .chip-avatar {
+                width: 24px;
+                height: 24px;
+                font-size: 11px;
+            }
+
+            .form-group {
+                margin-bottom: 14px;
             }
 
             .btn-login {
@@ -227,6 +418,16 @@
             input {
                 font-size: 15px;
                 padding: 12px 14px;
+            }
+
+            .steps {
+                gap: 8px;
+                margin-top: 18px;
+            }
+
+            .step {
+                font-size: 11px;
+                padding: 6px 10px;
             }
 
             .footer-avatar {
@@ -262,13 +463,6 @@
             }
         }
 
-        /* ── HIDE SPINNER NUMBER INPUT ── */
-        input[type="text"]::-webkit-inner-spin-button,
-        input[type="text"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
         .helper-text {
             display: block;
             margin-top: 4px;
@@ -281,13 +475,29 @@
 
 <body>
 
-    <class class="login-card">
+    <!-- Balon latar (dekorasi, CSS-only) -->
+    <div class="bg-balloons" aria-hidden="true">
+        <img src="img/ballon1.svg" style="left:6%; animation-duration:18s; animation-delay:-2s;" alt="" />
+        <img src="img/ballon2.svg" style="left:22%; animation-duration:23s; animation-delay:-9s; width:80px;" alt="" />
+        <img src="img/ballon3.svg" style="left:38%; animation-duration:16s; animation-delay:-4s;" alt="" />
+        <img src="img/ballon1.svg" style="left:55%; animation-duration:21s; animation-delay:-12s; width:70px;" alt="" />
+        <img src="img/ballon2.svg" style="left:70%; animation-duration:17s; animation-delay:-6s;" alt="" />
+        <img src="img/ballon3.svg" style="left:84%; animation-duration:24s; animation-delay:-15s; width:85px;" alt="" />
+        <img src="img/ballon2.svg" style="left:92%; animation-duration:19s; animation-delay:-1s; width:60px;" alt="" />
+    </div>
+
+    <div class="login-card">
         <!-- Logo -->
         <div class="logo">
-            <span class="logo-icon">🕯️</span>
+            <span class="logo-icon">🎂</span>
             <h1>UltahLINK</h1>
-            <p>masuk untuk membuka ucapan</p>
+
         </div>
+
+        <p class="stats" id="stats"></p>
+
+        <!-- Teman terdaftar — klik untuk isi otomatis -->
+        <div class="chips" id="chips"></div>
 
         <!-- Form -->
         <form id="loginForm" autocomplete="off">
@@ -313,11 +523,16 @@
             </div>
         </form>
 
-        <!-- Footer dengan foto Javas -->
-        <!-- Footer dengan foto Javas -->
+        <!-- Cara pakai -->
+        <div class="steps" aria-label="Cara pakai">
+            <div class="step"><span>1</span> Ketik nama + tanggal lahir</div>
+            <div class="step"><span>2</span> Buka ucapanmu</div>
+            <div class="step"><span>3</span> Rayakan! 🎉</div>
+        </div>
+
+        <!-- Footer -->
         <div class="footer">
-            <img src="img/javas.png" alt="Foto Javas" class="footer-avatar" ... />
-            <div class="footer-avatar" id="avatarFallback" style="display: none;">JC</div>
+            <img src="img/javas.png" alt="Foto Javas" class="footer-avatar" />
             <p class="footer-text">
                 dibuat oleh <span>Javas Chairunnas</span>
                 <br />
@@ -326,18 +541,19 @@
                 </span>
             </p>
         </div>
-        </class>
     </div>
 
+    <!-- Config & Script -->
+    <script src="./config.js"></script>
     <script>
         // ============================================================
-        // 1. DATA USER (HARDCODED — kamu yang atur)
+        // 1. DATA USER (otomatis dari config.js — satu sumber data)
         // ============================================================
-        const USERS = [
-            { username: "TEST", birthdate: "01-01" },
-            // Tambahkan teman-temanmu di sini!
-            // Username harus UPPERCASE, tanggal format DD-MM
-        ];
+        // Catatan: top-level `const` tidak muncul di window.*, jadi jangan pakai window.CONFIG
+        const USERS = (typeof CONFIG !== "undefined" ? CONFIG.profiles : []).map((p) => ({
+            username: p.username,
+            birthdate: p.birthdate,
+        }));
 
         // ============================================================
         // 2. ELEMEN
@@ -347,6 +563,8 @@
         const birthdateInput = document.getElementById('birthdate');
         const btnLogin = document.getElementById('btnLogin');
         const errorMsg = document.getElementById('errorMsg');
+        const statsEl = document.getElementById('stats');
+        const chipsEl = document.getElementById('chips');
 
         // ============================================================
         // 3. USERNAME → OTOMATIS UPPERCASE (seperti Apple/Microsoft)
@@ -393,13 +611,6 @@
             this.setSelectionRange(newPos, newPos);
 
             lastBirthdateValue = this.value;
-        });
-
-        // Handle backspace/delete dengan aman
-        birthdateInput.addEventListener('keydown', function (e) {
-            // Jika backspace ditekan dan posisi kursor di setelah strip,
-            // kita biarkan input handling normal
-            // Tidak perlu intervensi khusus
         });
 
         // ============================================================
@@ -461,8 +672,8 @@
             btnLogin.innerHTML = '<span class="spinner"></span> Membuka...';
 
             setTimeout(() => {
-               const redirectUrl =
-                    `ucapan.html?nama=${encodeURIComponent(foundUser.username)}&tgl=${foundUser.birthdate}`;
+                const redirectUrl =
+                    `ucapan.html?nama=${encodeURIComponent(foundUser.username)}`;
                 window.location.href = redirectUrl;
             }, 800);
         }
@@ -489,20 +700,52 @@
         });
 
         // ============================================================
-        // 8. EVENT LISTENER
+        // 7. RENDER STATS + CHIP TEMAN (data dari config.js)
+        // ============================================================
+        function renderFriendChips() {
+            const profiles = typeof CONFIG !== "undefined" ? CONFIG.profiles : [];
+            if (!profiles.length) return;
+
+
+            chipsEl.innerHTML = profiles.map((p, i) => {
+                const initials = (p.name || p.username || '?')
+                    .trim()
+                    .split(/\s+/)
+                    .slice(0, 2)
+                    .map((w) => w[0])
+                    .join('')
+                    .toUpperCase();
+                return `<button type="button" class="chip" data-index="${i}" title="${p.name}">
+                    <span class="chip-avatar">${initials}</span>${p.name}
+                </button>`;
+            }).join('');
+        }
+
+        chipsEl.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            const profiles = typeof CONFIG !== "undefined" ? CONFIG.profiles : [];
+            const profile = chip && profiles[Number(chip.dataset.index)];
+            if (!profile) return;
+            usernameInput.value = profile.username;
+            birthdateInput.value = profile.birthdate;
+            errorMsg.classList.remove('show');
+            usernameInput.classList.remove('input-error');
+            birthdateInput.classList.remove('input-error');
+            btnLogin.focus();
+        });
+
+        // ============================================================
+        // 8. SUBMIT & AUTO-FOCUS
         // ============================================================
         form.addEventListener('submit', handleLogin);
 
-        // ============================================================
-        // 9. AUTO-FOCUS
-        // ============================================================
         window.addEventListener('load', () => {
             usernameInput.focus();
+            renderFriendChips();
         });
 
         console.log('🔐 UltahLINK Login siap!');
         console.log(`📋 ${USERS.length} user terdaftar.`);
-        console.log('📸 Taruh foto Javas di img/javas.jpg');
     </script>
 
 </body>
