@@ -225,7 +225,7 @@ const CONFIG = {
       username: "KEYZHA",               // ← typed on the login page (UPPERCASE)
       birthdate: "07-08",              // ← format DD-MM
       name: "KEYZHA BINTANG", // ← name shown in the greeting
-      photo: "./img/RAFKA SMANDA.jpg",    // ← ganti foto Rafka di img/ folder
+      photo: "./img/KEYZHASMANDA.jpg",    // ← ganti foto Rafka di img/ folder
       music: "./music/Hindia.mpeg",    // ← lagu khusus Rafka (MP3, bukan MPEG)
 
 
@@ -235,7 +235,7 @@ const CONFIG = {
         {
           type: "greeting",
           title: "Halo,",
-          subtitle: "Jujur aja... aku baru tau hari ini kamu ultah. 😭",
+          subtitle: "Jujur aja... sy baru tau hari ini kamu ultah. 😭",
         },
         {
           type: "countdown",
@@ -259,7 +259,7 @@ const CONFIG = {
         {
           type: "chatbox",
           message:
-            "Happy Birthday! 🥳 Jujur aj, website ini emang udah ada dari 3 minggu yg lalu, jadi kupikir sekalian aj dipake buat ngucapin HBD. 😄 Gak usah dibawa serius juga, anggap aja kartu ucapan versi digital. Yang penting enjoy hari ini, pokoknya have fun dan selmat menikmati hari ulang tahunmu! 🎂",
+            "Happy Birthday! 🥳 Jujur aj, website ini emang udah ada dari 3 minggu yg lalu, jadi kupikir sekalian aj dipake buat ngucapin HBD. 😄 Gak usah dibawa serius juga, anggap aj krtu ucapan versi digital. Yang penting enjoy hari ini, pokoknya have fun n slmat menikmati hari ulang tahunmu! 🎂",
           buttonText: "next 🚀",
         },
         {
@@ -268,7 +268,7 @@ const CONFIG = {
             "Awalnya cuma mau bilang, Happy Birthday.",
             "Terus kepikiran website ini.",
             "Yaudah sekalian aja dipake. 😄",
-            "Biar ada yang buka juga.<span>:)</span>",
+            "Biar ada yang buka juga <span>:)</span>",
           ],
           bigLetters: "HBD YA",
         },
@@ -302,7 +302,7 @@ const CONFIG = {
         },
         {
           type: "closing",
-          text: "Selesai. 😄 Makasih udah nyempetin buka website ini., see u 👋",
+          text: "Selesai. 😄 Kalo ada ide atau bagian yg menurutmu kurang, bilang aja ya, see u 👋",
           replayText: "Atau klik di sini kalau mau nonton lagi.",
         },
       ],
