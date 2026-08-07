@@ -219,6 +219,93 @@ const CONFIG = {
       ],
     },
 
+    {
+      username: "KEYZHA",               // ← typed on the login page (UPPERCASE)
+      birthdate: "07-08",              // ← format DD-MM
+      name: "KEYZHA BINTANG", // ← name shown in the greeting
+      photo: "./img/RAFKA SMANDA.jpg",    // ← ganti foto Rafka di img/ folder
+      music: "./music/Hindia.mpeg",    // ← lagu khusus Rafka (MP3, bukan MPEG)
+
+
+
+      // ── Rafka's greeting sections (order = display order) ──
+      sections: [
+        {
+          type: "greeting",
+          title: "Halo,",
+          subtitle: "Website ini muncul karena kamu spesial… ya iyalah, ini ultahmu! 😎(testing doang, teks pake chatgpt)",
+        },
+        {
+          type: "countdown",
+          from: 3,
+          goText: "🎂",
+        },
+
+        {
+          type: "cake",
+          candles: 5,
+          hint: "Tiup lilinnya — pakai suaramu atau klik kue! 🎤",
+          wish: "Semoga wish kamu terkabul! 🎂✨",
+          nextText: "Lanjut, lihat fotonya ✨",
+        },
+
+
+        {
+          type: "announcement",
+          text: "HARI INI HARI LAHIR KAMU!! 🎉(testing doang)",
+        },
+        {
+          type: "chatbox",
+          message:
+            "Selamat ulang tahun, Rafka! 🥳 Semoga tahun ini makin gacor — rezeki lancar, level bahagia naik terus, dan semua target tercapai. Jangan lupa jadiin hari ini paling seru!(dari chatgpt)",
+          buttonText: "Send 🚀",
+        },
+        {
+          type: "ideas",
+          lines: [
+            "Sebenarnya, aku cuma mau bilang: Happy Birthday.",
+            "Tapi kayaknya terlalu biasa.",
+            "Jadi aku bikinin sesuatu yang lebih <strong>spesial</strong>.",
+            "Sebuah website.",
+            "Khusus buat kamu <span>:)</span>",
+          ],
+          bigLetters: "HBD",
+        },
+        {
+          type: "quote",
+          text: "Satu-satunya hal yang saya tahu adalah bahwa saya tidak tahu apa-apa",
+          author: "socrates",
+        },
+        {
+          type: "stars",
+          count: 40,
+        },
+        {
+          type: "balloons",
+          count: 25,
+        },
+
+        {
+          type: "profile",
+          wishTitle: "Happy Birthday!",
+          wishText: "Semoga semua target tahun ini tercapai dan makin jaya! 🚀 (prank)",
+          nextText: "Lanjut 🎉",
+        },
+        {
+          type: "fireworks",
+          count: 24,
+        },
+        {
+          type: "confetti",
+          count: 9,
+        },
+        {
+          type: "closing",
+          text: "Oke, sekarang tutup websitenya… lalu bilang ke aku: suka apa nggak? 😏",
+          replayText: "Atau klik di sini kalau mau nonton lagi.",
+        },
+      ],
+    },
     // ── TEMPLATE: next friend (copy-paste, fill the data) ────────
     // {
     //   username: "BUDI",            // UPPERCASE, same as login

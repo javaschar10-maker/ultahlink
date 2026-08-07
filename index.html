@@ -699,40 +699,6 @@
             birthdateInput.classList.remove('input-error');
         });
 
-        // ============================================================
-        // 7. RENDER STATS + CHIP TEMAN (data dari config.js)
-        // ============================================================
-        function renderFriendChips() {
-            const profiles = typeof CONFIG !== "undefined" ? CONFIG.profiles : [];
-            if (!profiles.length) return;
-
-
-            chipsEl.innerHTML = profiles.map((p, i) => {
-                const initials = (p.name || p.username || '?')
-                    .trim()
-                    .split(/\s+/)
-                    .slice(0, 2)
-                    .map((w) => w[0])
-                    .join('')
-                    .toUpperCase();
-                return `<button type="button" class="chip" data-index="${i}" title="${p.name}">
-                    <span class="chip-avatar">${initials}</span>${p.name}
-                </button>`;
-            }).join('');
-        }
-
-        chipsEl.addEventListener('click', (e) => {
-            const chip = e.target.closest('.chip');
-            const profiles = typeof CONFIG !== "undefined" ? CONFIG.profiles : [];
-            const profile = chip && profiles[Number(chip.dataset.index)];
-            if (!profile) return;
-            usernameInput.value = profile.username;
-            birthdateInput.value = profile.birthdate;
-            errorMsg.classList.remove('show');
-            usernameInput.classList.remove('input-error');
-            birthdateInput.classList.remove('input-error');
-            btnLogin.focus();
-        });
 
         // ============================================================
         // 8. SUBMIT & AUTO-FOCUS

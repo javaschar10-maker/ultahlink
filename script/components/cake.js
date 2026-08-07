@@ -1,4 +1,4 @@
-function () {
+(function () {
     window.Components = window.Components || {};
 
     // Blow sound: white noise + lowpass filter (Web Audio, no audio file needed)
@@ -41,6 +41,9 @@ function () {
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then((stream) => {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                // Context created without a user gesture starts suspended → analyser
+                // reads silence → blow never detected. Resume right after creation.
+                ctx.resume().catch(() => { });
                 const src = ctx.createMediaStreamSource(stream);
                 const analyser = ctx.createAnalyser();
                 analyser.fftSize = 512;
@@ -57,7 +60,7 @@ function () {
                         sum += v * v;
                     }
                     const rms = Math.sqrt(sum / data.length);
-                    if (rms > 0.35 && Date.now() - lastBlow > 600) {
+                    if (rms > 0.03 && Date.now() - lastBlow > 600) {
                         lastBlow = Date.now();
                         onBlow();
                         return;
@@ -163,5 +166,11 @@ function () {
                 tl.resume();
             });
         },
+
+        // Scheduled by the engine after the pause marker — fades the cake out
+        // so the next section (profile) doesn't overlap it.
+        exit(tl, el) {
+            tl.to(el, { duration: 0.5, opacity: 0 });
+        },
     };
-}) ();
+})();
