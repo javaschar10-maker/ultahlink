@@ -111,7 +111,7 @@ const CONFIG = {
         {
           type: "cake",
           candles: 5,
-          hint: "Tiup lilinnya — pakai suaramu atau klik kue! 🎤",
+          hint: "Klik kue untuk mengaktifkan tiupan 🎤",
           wish: "Semoga wish kamu terkabul! 🎂✨",
           nextText: "Lanjut, lihat fotonya ✨",
         },
@@ -156,6 +156,14 @@ const CONFIG = {
           from: 3,
           goText: "🎂",
         },
+
+        {
+          type: "cake",
+          candles: 5,
+          hint: "Klik kue untuk mengaktifkan tiupan 🎤",
+          wish: "Semoga wish kamu terkabul! 🎂✨",
+          nextText: "Lanjut  ✨",
+        },
         {
           type: "announcement",
           text: "HARI INI HARI LAHIR KAMU!! 🎉(testing doang)",
@@ -190,13 +198,7 @@ const CONFIG = {
           type: "balloons",
           count: 25,
         },
-        {
-          type: "cake",
-          candles: 5,
-          hint: "Tiup lilinnya — pakai suaramu atau klik kue! 🎤",
-          wish: "Semoga wish kamu terkabul! 🎂✨",
-          nextText: "Lanjut, lihat fotonya ✨",
-        },
+
         {
           type: "profile",
           wishTitle: "Happy Birthday!",
@@ -244,9 +246,9 @@ const CONFIG = {
         {
           type: "cake",
           candles: 5,
-          hint: "Tiup lilinnya — pakai suaramu atau klik kue! 🎤",
+          hint: "Klik kue untuk mengaktifkan tiupan 🎤",
           wish: "Semoga wish kamu terkabul! 🎂✨",
-          nextText: "Lanjut, lihat fotonya ✨",
+          nextText: "Lanjut ✨",
         },
 
 

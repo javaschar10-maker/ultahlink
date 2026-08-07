@@ -28,62 +28,6 @@
         }
     }
 
-    // Real blow detection via microphone. Music pauses while the mic is on
-    // and resumes after the blow. Returns a cleanup function (or null if
-    // unsupported) — click on the cake stays as fallback.
-    // ponytail: naive RMS threshold (0.35); tune per device if loud music leaks in.
-    function startBlowDetection(onBlow) {
-        let cleanup = null;
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return cleanup;
-
-        if (window.UltahLink && window.UltahLink.music) window.UltahLink.music.pause();
-
-        navigator.mediaDevices.getUserMedia({ audio: true })
-            .then((stream) => {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                // Context created without a user gesture starts suspended → analyser
-                // reads silence → blow never detected. Resume right after creation.
-                ctx.resume().catch(() => { });
-                const src = ctx.createMediaStreamSource(stream);
-                const analyser = ctx.createAnalyser();
-                analyser.fftSize = 512;
-                src.connect(analyser);
-
-                const data = new Uint8Array(analyser.frequencyBinCount);
-                let lastBlow = 0;
-                let raf = 0;
-                const check = () => {
-                    analyser.getByteTimeDomainData(data);
-                    let sum = 0;
-                    for (let i = 0; i < data.length; i++) {
-                        const v = (data[i] - 128) / 128;
-                        sum += v * v;
-                    }
-                    const rms = Math.sqrt(sum / data.length);
-                    if (rms > 0.03 && Date.now() - lastBlow > 600) {
-                        lastBlow = Date.now();
-                        onBlow();
-                        return;
-                    }
-                    raf = requestAnimationFrame(check);
-                };
-                check();
-
-                cleanup = () => {
-                    cancelAnimationFrame(raf);
-                    stream.getTracks().forEach((t) => t.stop());
-                    ctx.close();
-                    if (window.UltahLink && window.UltahLink.music) window.UltahLink.music.resume();
-                };
-            })
-            .catch(() => {
-                // Mic denied — click fallback
-                if (window.UltahLink && window.UltahLink.music) window.UltahLink.music.resume();
-            });
-
-        return cleanup;
-    }
-
     function cakeSVG(count) {
         const candles = Array.from({ length: count }, (_, i) => {
             const x = 160 - (count - 1) * 14 + i * 28;
@@ -117,7 +61,7 @@
             div.className = "section section-cake";
             div.innerHTML = `
         <button type="button" class="cake-area" aria-label="Blow the candles">${cakeSVG(section.candles || 5)}</button>
-        <p class="cake-hint">${section.hint || "Klik kue, tiup lilinnya… lalu buat wish!"}</p>
+        <p class="cake-hint">${section.hint || "Klik kue untuk mengaktifkan tiupan 🎤"}</p>
         <p class="cake-wish">${section.wish || "Semoga wish kamu terkabul! 🎂✨"}</p>
         <button type="button" class="next-btn cake-next">${section.nextText || "Lanjut →"}</button>
       `;
@@ -126,14 +70,27 @@
         },
 
         animate(tl, el) {
-            let done = false;
+            // idle → listening → blown. Mic MUST start inside a user gesture
+            // (click) or the AudioContext stays suspended and the analyser
+            // reads silence — blow would never be detected.
+            let state = "idle";
             let cleanup = null;
+            const hint = el.querySelector(".cake-hint");
+            const originalHint = hint.textContent;
             const nextBtn = el.querySelector(".cake-next");
 
-            const blow = () => {
-                if (done) return;
-                done = true;
+            const stopMic = () => {
                 if (cleanup) { cleanup(); cleanup = null; }
+            };
+
+            const blow = () => {
+                if (state === "blown") return;
+                state = "blown";
+                stopMic();
+                // If autoplay never kicked in (no gesture before the cake),
+                // start the music now — this runs inside a click/gesture context.
+                const music = window.UltahLink && window.UltahLink.music;
+                if (music && !music.started) music.start();
                 playBlow();
                 gsap.to(el.querySelectorAll(".flame"), {
                     scale: 0.05, opacity: 0, duration: 0.35,
@@ -146,20 +103,72 @@
                 gsap.to(nextBtn, { opacity: 1, pointerEvents: "auto", duration: 0.4, delay: 0.9 });
             };
 
+            const startListening = () => {
+                state = "listening";
+                if (window.UltahLink && window.UltahLink.music) window.UltahLink.music.pause();
+                hint.textContent = "Tiup sekarang! 🌬️";
+
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then((stream) => {
+                        // AudioContext created inside the click handler → allowed to run
+                        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                        ctx.resume().catch(() => { });
+                        const src = ctx.createMediaStreamSource(stream);
+                        const analyser = ctx.createAnalyser();
+                        analyser.fftSize = 512;
+                        src.connect(analyser);
+
+                        const data = new Uint8Array(analyser.frequencyBinCount);
+                        let lastBlow = 0;
+                        let raf = 0;
+                        const check = () => {
+                            analyser.getByteTimeDomainData(data);
+                            let sum = 0;
+                            for (let i = 0; i < data.length; i++) {
+                                const v = (data[i] - 128) / 128;
+                                sum += v * v;
+                            }
+                            const rms = Math.sqrt(sum / data.length);
+                            // ponytail: naive RMS threshold — tune per device if music leaks in
+                            if (rms > 0.35 && Date.now() - lastBlow > 600) {
+                                lastBlow = Date.now();
+                                blow();
+                                return;
+                            }
+                            raf = requestAnimationFrame(check);
+                        };
+                        check();
+
+                        cleanup = () => {
+                            cancelAnimationFrame(raf);
+                            stream.getTracks().forEach((t) => t.stop());
+                            ctx.close();
+                            if (window.UltahLink && window.UltahLink.music) window.UltahLink.music.resume();
+                        };
+                    })
+                    .catch(() => {
+                        // Mic denied or unavailable — click fallback
+                        if (window.UltahLink && window.UltahLink.music) window.UltahLink.music.resume();
+                        blow();
+                    });
+            };
+
+            el.querySelector(".cake-area").addEventListener("click", () => {
+                if (state === "idle") startListening();
+                else blow();
+            });
+
             tl.from(el.querySelector(".cake-area"), {
                 duration: 0.8, scale: 0.6, opacity: 0, ease: "back.out(1.6)",
             })
-                .from(el.querySelector(".cake-hint"), {
+                .from(hint, {
                     duration: 0.5, opacity: 0, y: 12,
                 })
                 .addPause("+=0.5", () => {
-                    done = false;
-                    if (cleanup) { cleanup(); cleanup = null; }
-                    cleanup = startBlowDetection(blow);
+                    state = "idle";
+                    stopMic();
+                    hint.textContent = originalHint;
                 });
-
-            // Fallback & guarantee: click always blows the candles
-            el.querySelector(".cake-area").addEventListener("click", blow);
 
             nextBtn.addEventListener("click", () => {
                 gsap.to(nextBtn, { opacity: 0, pointerEvents: "none", duration: 0.3 });

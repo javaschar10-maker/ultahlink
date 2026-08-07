@@ -36,6 +36,7 @@ function createThemeToggle() {
 // ── Music toggle ─────────────────────────────────────────────────
 // Exposed as window.UltahLink.music so components (e.g. cake mic mode)
 // can pause music during mic use and restore it afterwards.
+// Auto-starts on the first user gesture — no button press needed.
 function createMusicToggle(audio) {
   const btn = document.createElement("button");
   btn.id = "music-toggle";
@@ -44,7 +45,14 @@ function createMusicToggle(audio) {
 
   window.UltahLink = window.UltahLink || {};
   window.UltahLink.music = {
+    started: false,
     wasPlaying: false,
+    start() {
+      this.started = true;
+      if (audio.paused) {
+        audio.play().then(() => { btn.textContent = "🔊"; }).catch(() => { });
+      }
+    },
     pause() {
       this.wasPlaying = !audio.paused;
       if (this.wasPlaying) {
@@ -68,6 +76,16 @@ function createMusicToggle(audio) {
     }
   });
   document.body.appendChild(btn);
+
+  // Autoplay attempt + first-gesture fallback: browsers block sound
+  // without a user gesture, so any tap/scroll starts the music.
+  const music = window.UltahLink.music;
+  const kick = () => music.start();
+  window.addEventListener("pointerdown", kick, { once: true });
+  window.addEventListener("touchstart", kick, { once: true });
+  window.addEventListener("keydown", kick, { once: true });
+  window.addEventListener("scroll", kick, { once: true, passive: true });
+  kick(); // allowed after prior interaction on the domain
 }
 
 // ── Profile from URL ─────────────────────────────────────────────
