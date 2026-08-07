@@ -130,7 +130,7 @@
                             }
                             const rms = Math.sqrt(sum / data.length);
                             // ponytail: naive RMS threshold — tune per device if music leaks in
-                            if (rms > 0.35 && Date.now() - lastBlow > 600) {
+                            if (rms > 0.05 && Date.now() - lastBlow > 600) {
                                 lastBlow = Date.now();
                                 blow();
                                 return;

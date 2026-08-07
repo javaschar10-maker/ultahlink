@@ -230,12 +230,12 @@ const CONFIG = {
 
 
 
-      // ── Rafka's greeting sections (order = display order) ──
+      // ── KEYZHA's greeting sections (order = display order) ──
       sections: [
         {
           type: "greeting",
           title: "Halo,",
-          subtitle: "Website ini muncul karena kamu spesial… ya iyalah, ini ultahmu! 😎(testing doang, teks pake chatgpt)",
+          subtitle: "Jujur aja... aku baru tau hari ini kamu ultah. 😭",
         },
         {
           type: "countdown",
@@ -246,7 +246,7 @@ const CONFIG = {
         {
           type: "cake",
           candles: 5,
-          hint: "Klik kue untuk mengaktifkan tiupan 🎤",
+          hint: "Tiup lilinnya dulu. Kalo mic-nya error, klik aja kuenya. 😌",
           wish: "Semoga wish kamu terkabul! 🎂✨",
           nextText: "Lanjut ✨",
         },
@@ -254,29 +254,28 @@ const CONFIG = {
 
         {
           type: "announcement",
-          text: "HARI INI HARI LAHIR KAMU!! 🎉(testing doang)",
+          text: "HARI INI HARI LAHIR KAMU!! 🎉",
         },
         {
           type: "chatbox",
           message:
-            "Selamat ulang tahun, Rafka! 🥳 Semoga tahun ini makin gacor — rezeki lancar, level bahagia naik terus, dan semua target tercapai. Jangan lupa jadiin hari ini paling seru!(dari chatgpt)",
-          buttonText: "Send 🚀",
+            "Happy Birthday! 🥳 Jujur aj, website ini emang udah ada dari 3 minggu yg lalu, jadi kupikir sekalian aj dipake buat ngucapin HBD. 😄 Gak usah dibawa serius juga, anggap aja kartu ucapan versi digital. Yang penting enjoy hari ini, pokoknya have fun dan selmat menikmati hari ulang tahunmu! 🎂",
+          buttonText: "next 🚀",
         },
         {
           type: "ideas",
           lines: [
-            "Sebenarnya, aku cuma mau bilang: Happy Birthday.",
-            "Tapi kayaknya terlalu biasa.",
-            "Jadi aku bikinin sesuatu yang lebih <strong>spesial</strong>.",
-            "Sebuah website.",
-            "Khusus buat kamu <span>:)</span>",
+            "Awalnya cuma mau bilang, Happy Birthday.",
+            "Terus kepikiran website ini.",
+            "Yaudah sekalian aja dipake. 😄",
+            "Biar ada yang buka juga.<span>:)</span>",
           ],
-          bigLetters: "HBD",
+          bigLetters: "HBD YA",
         },
         {
           type: "quote",
-          text: "Satu-satunya hal yang saya tahu adalah bahwa saya tidak tahu apa-apa",
-          author: "socrates",
+          text: "The more you praise and celebrate your life, the more there is in life to celebrate.",
+          author: "— Oprah Winfrey",
         },
         {
           type: "stars",
@@ -290,7 +289,7 @@ const CONFIG = {
         {
           type: "profile",
           wishTitle: "Happy Birthday!",
-          wishText: "Semoga semua target tahun ini tercapai dan makin jaya! 🚀 (prank)",
+          wishText: "Sekarang tinggal nunggu kapan traktirnya. 👀",
           nextText: "Lanjut 🎉",
         },
         {
@@ -303,7 +302,7 @@ const CONFIG = {
         },
         {
           type: "closing",
-          text: "Oke, sekarang tutup websitenya… lalu bilang ke aku: suka apa nggak? 😏",
+          text: "Selesai. 😄 Makasih udah nyempetin buka website ini., see u 👋",
           replayText: "Atau klik di sini kalau mau nonton lagi.",
         },
       ],
